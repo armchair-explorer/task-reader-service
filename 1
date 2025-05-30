@@ -20,11 +20,11 @@ func NewTaskRepository(db *sql.DB) TaskRepository {
 
 func (r *taskRepository) FetchTasks(page, limit int, status string) ([]domain.Task, error) {
     offset := (page - 1) * limit
-    query := `SELECT id, title, description, status, created_at, updated_at FROM tasks WHERE is_active = TRUE`
+    query := `SELECT id, title, description, status, created_at, updated_at FROM tasks`
     args := []interface{}{}
 
     if status != "" {
-        query += ` AND status=$1`
+        query += ` WHERE status=$1`
         args = append(args, status)
     }
 
